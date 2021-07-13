@@ -1,0 +1,23 @@
+﻿<Window x:Class="ERP.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERP.UI" xmlns:margin="
+        clr-namespace:ERP.UI.Margin;assembly=ERP.UI.Margin"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Header"/>
+
+        <TextBlock DockPanel.Dock="Bottom"
+                   Text="Bottom"/>
+
+        <TextBlock DockPanel.Dock="Left"
+                   Text="Left"/>
+
+        <Frame Source="pack://application:,,,/ERP.UI.Margin;component/MarginView.xaml"/>
+        
+    </DockPanel>
+</Window>

@@ -1,0 +1,38 @@
+﻿<Page x:Class="ERP.UI.Margin.MarginView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ERP.UI.Margin"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1"
+      Background="Aqua">
+    <DockPanel Grid.IsSharedSizeScope="True">
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Total"/>
+            <TextBlock Text="{Binding Ingredients}"
+                       Grid.Column="1"/>
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding Ingredients}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding Name}"/>
+                        <TextBox Text="{Binding Price}"
+                                 Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
+</Page>
