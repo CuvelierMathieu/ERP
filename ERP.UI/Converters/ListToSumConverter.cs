@@ -46,6 +46,9 @@ namespace ERP.UI.Converters
                     throw new ArgumentException("Current item type is not handled by converter and parameter is null");
             }
 
+            if (targetType == typeof(string))
+                return sum.ToString();
+
             if (targetType == typeof(double))
                 return sum;
 

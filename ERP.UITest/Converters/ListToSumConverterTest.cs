@@ -160,6 +160,15 @@ namespace ERP.UITest.Converters
         }
 
         [Test]
+        [TestCaseSource(nameof(DoubleList))]
+        public void ReturnsStringIfAsked(List<double> valuesToBeAdded)
+        {
+            object actual = _converter.Convert(valuesToBeAdded, typeof(string), DefaultParameter, DefaultCulture);
+
+            Assert.IsTrue(actual is string, $"Actual value type is {actual.GetType()}");
+        }
+
+        [Test]
         public void RoundsDownIfTargetTypeIsIntAndFirstDecimalDigitIsLesserThan5()
         {
             List<double> value = new() { 3.49 };
