@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 
@@ -45,7 +46,7 @@ namespace ERP.UITest.Converters
 
         private static readonly List<double> DefaultValue = (List<double>)DoubleList[0];
         private static readonly Type DefaultTargetType = typeof(double);
-        private const string DefaultParameter = "";
+        private const string DefaultParameter = null;
         private static readonly CultureInfo DefaultCulture = CultureInfo.InvariantCulture;
 
         private ListToSumConverter _converter;
@@ -192,6 +193,45 @@ namespace ERP.UITest.Converters
             };
 
             Assert.Throws<ArgumentException>(() => _converter.Convert(list, DefaultTargetType, parameter, DefaultCulture));
+        }
+
+        [Test]
+        public void ReturnsExpectedResultForComplexObjectsList()
+        {
+            List<ComplexObjectForTestingListToSumConverter> list = DefaultValue
+                .Select(d => new ComplexObjectForTestingListToSumConverter() { Value = d })
+                .ToList();
+
+            double expected = list.Sum(o => o.Value);
+
+            object actual = _converter.Convert(list, DefaultTargetType, nameof(ComplexObjectForTestingListToSumConverter.Value), DefaultCulture);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ConverterOnAComplexObjectListTakesMaxTenTimesMoreTimeThanLinq()
+        {
+            List<ComplexObjectForTestingListToSumConverter> list = DefaultValue
+                .Select(d => new ComplexObjectForTestingListToSumConverter() { Value = d })
+                .ToList();
+
+            Stopwatch stopwatch = new();
+
+            stopwatch.Start();
+            double a = list.Sum(o => o.Value);
+            stopwatch.Stop();
+
+            long elapsedTimeForLinq = stopwatch.ElapsedTicks;
+            long maxAcceptableTime = elapsedTimeForLinq * 10;
+
+            stopwatch.Restart();
+            object b = _converter.Convert(list, DefaultTargetType, nameof(ComplexObjectForTestingListToSumConverter.Value), DefaultCulture);
+            stopwatch.Stop();
+
+            long elapsedTimeForConverter = stopwatch.ElapsedTicks;
+
+            Assert.LessOrEqual(elapsedTimeForConverter, maxAcceptableTime);
         }
     }
 

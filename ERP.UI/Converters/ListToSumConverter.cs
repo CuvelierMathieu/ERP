@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Globalization;
-using System.Linq;
+using System.Reflection;
 using System.Windows.Data;
 
 namespace ERP.UI.Converters
@@ -19,22 +19,31 @@ namespace ERP.UI.Converters
 
             double sum = 0;
             IEnumerator enumerator = list.GetEnumerator();
+            PropertyInfo propertyInfo = null;
 
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current is double currentDoubleValue)
-                    sum += currentDoubleValue;
-                else if (enumerator.Current is int currentIntValue)
-                    sum += currentIntValue;
-                else if (enumerator.Current is decimal currentDecimalValue)
-                    sum += double.Parse(currentDecimalValue.ToString());
-                else if (parameter is null)
-                    throw new ArgumentException("Current item type is not handled by converter and parameter is null");
+                object current = enumerator.Current;
+
+                if (propertyInfo is not null)
+                    current = propertyInfo.GetValue(current);
                 else if (parameter is string stringParameter)
                 {
                     if (string.IsNullOrWhiteSpace(stringParameter))
                         throw new ArgumentException("Parameter is empty or white space");
+
+                    propertyInfo = enumerator.Current.GetType().GetProperty(stringParameter);
+                    current = propertyInfo.GetValue(current);
                 }
+
+                if (current is double currentDoubleValue)
+                    sum += currentDoubleValue;
+                else if (current is int currentIntValue)
+                    sum += currentIntValue;
+                else if (current is decimal currentDecimalValue)
+                    sum += double.Parse(currentDecimalValue.ToString());
+                else if (parameter is null)
+                    throw new ArgumentException("Current item type is not handled by converter and parameter is null");
             }
 
             if (targetType == typeof(double))
