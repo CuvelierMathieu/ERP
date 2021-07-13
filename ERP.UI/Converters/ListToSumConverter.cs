@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace ERP.UI.Converters
@@ -8,7 +10,43 @@ namespace ERP.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (value is null)
+                return 0;
+
+            if (value is string
+                || value is not IEnumerable list)
+                throw new ArgumentException("Value is expected to be a IEnumerable");
+
+            double sum = 0;
+            IEnumerator enumerator = list.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current is double currentDoubleValue)
+                    sum += currentDoubleValue;
+                else if (enumerator.Current is int currentIntValue)
+                    sum += currentIntValue;
+                else if (enumerator.Current is decimal currentDecimalValue)
+                    sum += double.Parse(currentDecimalValue.ToString());
+                else if (parameter is null)
+                    throw new ArgumentException("Current item type is not handled by converter and parameter is null");
+                else if (parameter is string stringParameter)
+                {
+                    if (string.IsNullOrWhiteSpace(stringParameter))
+                        throw new ArgumentException("Parameter is empty or white space");
+                }
+            }
+
+            if (targetType == typeof(double))
+                return sum;
+
+            if (targetType == typeof(decimal))
+                return decimal.Parse(sum.ToString());
+
+            if (targetType == typeof(int))
+                return (int)Math.Round(sum);
+
+            throw new NotImplementedException($"Converter is not handled to target type {targetType}");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
