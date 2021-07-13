@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Total"/>
-            <TextBlock Text="{Binding Ingredients}"
+            <TextBlock Text="{Binding Ingredients, Converter={StaticResource ListToSumConverter}, ConverterParameter=Price}"
                        Grid.Column="1"/>
         </Grid>
 
