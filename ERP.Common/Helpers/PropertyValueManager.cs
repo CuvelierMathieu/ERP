@@ -44,11 +44,11 @@ namespace ERP.Common.Helpers
 
         private void AddPropertyIntoDictionaryWithDefaultValue(string propertyName)
         {
-            dynamic defaultValue = GetDefaultValueForProperty(propertyName);
+            dynamic defaultValue = PropertyValueManager<T>.GetDefaultValueForProperty(propertyName);
             valuesDictionary.Add(propertyName, defaultValue);
         }
 
-        private dynamic GetDefaultValueForProperty(string propertyName)
+        private static dynamic GetDefaultValueForProperty(string propertyName)
         {
             PropertyInfo[] allProperties = ReflectionCache.GetPropertiesForType(typeof(T));
             PropertyInfo property = allProperties.Single(p => p.Name == propertyName);
