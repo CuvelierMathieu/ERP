@@ -1,13 +1,13 @@
-﻿using ERP.Common.Models;
+﻿using ERP.Common.Helpers.Types;
+using ERP.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace ERP.Common.Helpers
 {
-    public class PropertyValueManager<T> where T : BaseModel
+    public class PropertyValueManager<T> : IPropertyValueManager where T : BaseModel
     {
         private readonly Dictionary<string, object> valuesDictionary;
         private readonly object _lock = new();
@@ -17,7 +17,7 @@ namespace ERP.Common.Helpers
             valuesDictionary = new();
         }
 
-        public dynamic Get([CallerMemberName] string propertyName = null)
+        public dynamic Get(string propertyName)
         {
             if (PropertyIsNotInDictionary(propertyName))
                 lock (_lock)
@@ -27,7 +27,7 @@ namespace ERP.Common.Helpers
             return ReadValueFromDictionary(propertyName);
         }
 
-        public void Set<PropertyType>(PropertyType value, [CallerMemberName] string propertyName = null)
+        public void Set<PropertyType>(PropertyType value, string propertyName)
         {
             valuesDictionary[propertyName] = value;
         }
@@ -53,9 +53,20 @@ namespace ERP.Common.Helpers
             PropertyInfo[] allProperties = ReflectionCache.GetPropertiesForType(typeof(T));
             PropertyInfo property = allProperties.Single(p => p.Name == propertyName);
             Type type = property.PropertyType;
-            object defaultValue = Activator.CreateInstance(type);
 
-            return defaultValue;
+            if (type.IsValueType)
+            {
+                object defaultValue = Activator.CreateInstance(type);
+
+                return defaultValue;
+            }
+            else
+            {
+                ITypeHandler typeHandler = TypeHandlerBuilder.Build(type);
+                object defaultValue = typeHandler.GetDefaultValue();
+
+                return defaultValue;
+            }
         }
 
         private dynamic ReadValueFromDictionary(string propertyName)

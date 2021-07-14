@@ -20,7 +20,7 @@ namespace ERP.CommonTest.Helpers
             PropertyValueManager<ModelForPropertyValueManagerTest> manager = new();
 
             int expectedId = default;
-            DateTime? expectedCreationDate = default;
+            DateTime expectedCreationDate = default;
 
             Assert.AreEqual(expectedId, manager.Get(nameof(ModelForPropertyValueManagerTest.Id)));
             Assert.AreEqual(expectedCreationDate, manager.Get(nameof(ModelForPropertyValueManagerTest.CreationDate)));
@@ -45,6 +45,8 @@ namespace ERP.CommonTest.Helpers
     {
         public int Id { get; set; }
 
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
+        
+        public DateTime? UpdateDate { get; set; }
     }
 }
