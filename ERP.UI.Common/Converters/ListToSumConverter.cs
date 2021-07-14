@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Data;
 
-namespace ERP.UI.Converters
+namespace ERP.UI.Common.Converters
 {
     public class ListToSumConverter : IValueConverter
     {

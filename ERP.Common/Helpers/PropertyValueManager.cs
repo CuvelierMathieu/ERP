@@ -54,13 +54,13 @@ namespace ERP.Common.Helpers
             PropertyInfo property = allProperties.Single(p => p.Name == propertyName);
             Type type = property.PropertyType;
 
-            if (type.IsValueType)
+            try
             {
                 object defaultValue = Activator.CreateInstance(type);
 
                 return defaultValue;
             }
-            else
+            catch
             {
                 ITypeHandler typeHandler = TypeHandlerBuilder.Build(type);
                 object defaultValue = typeHandler.GetDefaultValue();

@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ERP.UI.Margin"
+      xmlns:components="clr-namespace:ERP.UI.Common.Components;assembly=ERP.UI.Common" 
+      d:DataContext="{d:DesignInstance Type=local:MarginViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page1"
@@ -15,8 +17,9 @@
                 <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Total"/>
-            <TextBlock Text="{Binding Ingredients, Converter={StaticResource ListToSumConverter}, ConverterParameter=Price}"
-                       Grid.Column="1"/>
+            <components:UpdatableTextBlock Text="{Binding Ingredients, Converter={StaticResource ListToSumConverter}, ConverterParameter=Price, UpdateSourceTrigger=Explicit}"
+                                           Grid.Column="1"
+                                           Mediator="{Binding UpdateTotalMediator}"/>
         </Grid>
 
         <ItemsControl ItemsSource="{Binding Ingredients}">
@@ -27,8 +30,8 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Name}"/>
-                        <TextBox Text="{Binding Price}"
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
                                  Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>

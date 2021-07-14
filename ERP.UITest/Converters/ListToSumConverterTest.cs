@@ -1,4 +1,4 @@
-﻿using ERP.UI.Converters;
+﻿using ERP.UI.Common.Converters;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace ERP.UITest.Converters
     [TestFixture]
     public class ListToSumConverterTest
     {
-        public static object[] DoubleList = new object[]
+        private static readonly object[] DoubleList = new object[]
         {
             new List<double>
             {
@@ -22,7 +22,7 @@ namespace ERP.UITest.Converters
             },
         };
 
-        public static object[] IntList = new object[]
+        private static readonly object[] IntList = new object[]
         {
             new List<int>
             {
@@ -33,7 +33,7 @@ namespace ERP.UITest.Converters
             },
         };
 
-        public static object[] DecimalList = new object[]
+        private static readonly object[] DecimalList = new object[]
         {
             new List<decimal>
             {
