@@ -10,7 +10,7 @@ namespace ERP.UI.Margin
 {
     public class MarginViewModel : BaseModel
     {
-        public ObservableCollection<Ingredient> Ingredients { get => Get(); private set => Set(value); }
+        public ObservableCollection<Ingredient> Ingredients { get => Get(); set => Set(value); }
 
         public IBindingUpdateMediator UpdateTotalMediator { get; private set; }
 
@@ -51,11 +51,15 @@ namespace ERP.UI.Margin
 
         private void Ingredients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (Ingredient item in e.OldItems)
-                item.PropertyChanged -= UpdateTotalWhenPriceIsChanged;
+            if (e.OldItems is not null)
+                foreach (Ingredient item in e.OldItems)
+                    item.PropertyChanged -= UpdateTotalWhenPriceIsChanged;
 
-            foreach (Ingredient item in e.NewItems)
-                item.PropertyChanged += UpdateTotalWhenPriceIsChanged;
+            if (e.NewItems is not null)
+                foreach (Ingredient item in e.NewItems)
+                    item.PropertyChanged += UpdateTotalWhenPriceIsChanged;
+
+            UpdateTotalMediator.Update();
         }
 
         private void UpdateTotalWhenPriceIsChanged(object sender, PropertyChangedEventArgs e)
