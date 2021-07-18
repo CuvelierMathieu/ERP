@@ -2,16 +2,16 @@
 
 namespace ERP.Common.Helpers.Types.Handlers
 {
-    public class DateTimeHandler : ITypeHandler
+    public class FloatHandler : ITypeHandler
     {
         public double ConvertToDouble(object value)
         {
-            throw new NotImplementedException();
+            return (float)value;
         }
 
         public object GetDefaultValue()
         {
-            return default(DateTime);
+            return default(float);
         }
     }
 }

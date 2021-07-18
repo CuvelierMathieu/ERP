@@ -3,5 +3,6 @@
                     xmlns:converters="clr-namespace:ERP.UI.Common.Converters">
     
     <converters:ListToSumConverter x:Key="ListToSumConverter"/>
-    
+    <converters:SubstractMultiValueConverter x:Key="SubstractMultiValueConverter"/>
+
 </ResourceDictionary>

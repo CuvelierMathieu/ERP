@@ -1,15 +1,15 @@
 ﻿namespace ERP.Common.Helpers.Types.Handlers
 {
-    public class IntHandler : ITypeHandler
+    public class DecimalHandler : ITypeHandler
     {
         public double ConvertToDouble(object value)
         {
-            return (int)value;
+            return (double)(decimal)value;
         }
 
         public object GetDefaultValue()
         {
-            return default(int);
+            return default(decimal);
         }
     }
 }

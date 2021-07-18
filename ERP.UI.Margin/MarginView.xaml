@@ -23,19 +23,26 @@
             <TextBlock Text="Total"/>
             <components:UpdatableTextBlock Text="{Binding Ingredients, Converter={StaticResource ListToSumConverter}, ConverterParameter=Price, UpdateSourceTrigger=Explicit}"
                                            Grid.Column="1"
-                                           Mediator="{Binding UpdateTotalMediator}"/>
+                                           Mediator="{Binding UpdateTotalMediator}"
+                                           Name="TotalTextBlock"/>
             
             <TextBlock Text="Prix de vente"
                        Grid.Row="1"/>
             <TextBox Grid.Row="1"
                      Grid.Column="1"
-                     Text="X €"/>
+                     Text="{Binding SellPrice, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Bénéfice"
                        Grid.Row="2"/>
             <TextBlock Grid.Row="2"
-                       Grid.Column="1"
-                       Text="X €"/>
+                       Grid.Column="1">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource SubstractMultiValueConverter}">
+                        <Binding Path="SellPrice"/>
+                        <Binding ElementName="TotalTextBlock" Path="Text"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
 
             <TextBlock Text="Marge"
                        Grid.Row="3"/>

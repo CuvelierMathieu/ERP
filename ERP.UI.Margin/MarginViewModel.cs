@@ -20,6 +20,8 @@ namespace ERP.UI.Margin
 
         public ICommand DeleteCommand { get; set; }
 
+        public double SellPrice { get => Get(); set => Set(value); }
+
         public MarginViewModel()
         {
             Initialize();
@@ -81,7 +83,7 @@ namespace ERP.UI.Margin
 
         private void AddCommandExecute()
         {
-            Ingredient ingredient = new Ingredient();
+            Ingredient ingredient = new();
             Ingredients.Add(ingredient);
         }
 

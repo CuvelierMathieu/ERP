@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ERP.Common\ERP.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Dictionaries\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

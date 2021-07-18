@@ -3,5 +3,7 @@
     public interface ITypeHandler
     {
         object GetDefaultValue();
+
+        double ConvertToDouble(object value);
     }
 }
