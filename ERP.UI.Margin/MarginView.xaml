@@ -7,35 +7,70 @@
       xmlns:components="clr-namespace:ERP.UI.Common.Components;assembly=ERP.UI.Common" 
       d:DataContext="{d:DesignInstance Type=local:MarginViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page1"
-      Background="Aqua">
+      d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Grid.IsSharedSizeScope="True">
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <TextBlock Text="Total"/>
             <components:UpdatableTextBlock Text="{Binding Ingredients, Converter={StaticResource ListToSumConverter}, ConverterParameter=Price, UpdateSourceTrigger=Explicit}"
                                            Grid.Column="1"
                                            Mediator="{Binding UpdateTotalMediator}"/>
+            
+            <TextBlock Text="Prix de vente"
+                       Grid.Row="1"/>
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Text="X €"/>
+
+            <TextBlock Text="Bénéfice"
+                       Grid.Row="2"/>
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="X €"/>
+
+            <TextBlock Text="Marge"
+                       Grid.Row="3"/>
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="n %"/>
         </Grid>
 
-        <ItemsControl ItemsSource="{Binding Ingredients}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
-                                 Grid.Column="1"/>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <DockPanel>
+
+            <Button DockPanel.Dock="Bottom"
+                    Content="+"
+                    HorizontalAlignment="Right"
+                    Command="{Binding AddCommand}"/>
+
+            <ItemsControl ItemsSource="{Binding Ingredients}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
+                                     Grid.Column="1"/>
+                            <Button Grid.Column="2"
+                                    Content="Delete"
+                                    CommandParameter="{Binding .}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
+
     </DockPanel>
 </Page>

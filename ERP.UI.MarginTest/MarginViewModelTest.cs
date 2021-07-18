@@ -1,5 +1,7 @@
-﻿using ERP.UI.Margin;
+﻿using ERP.Models.Margin;
+using ERP.UI.Margin;
 using NUnit.Framework;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace ERP.UI.MarginTest
@@ -74,6 +76,49 @@ namespace ERP.UI.MarginTest
             void UpdateTotalMediator_OnUpdate()
             {
                 hasBeenCalled = true;
+            }
+        }
+
+        [Test]
+        public void AddCommandAddsAnIngredientToList()
+        {
+            MarginViewModel viewModel = new();
+            int quantityOfIngredientsAdded = 0,
+                expected = 1;
+            viewModel.Ingredients.CollectionChanged += Ingredients_CollectionChanged;
+
+            viewModel.AddCommand.Execute(null);
+
+            Assert.AreEqual(expected, quantityOfIngredientsAdded);
+
+            void Ingredients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            {
+                quantityOfIngredientsAdded += e.NewItems?.Count ?? 0;
+            }
+        }
+
+        [Test]
+        public void ChangePriceOfANewlyAddedIngredientCallsTheMediator()
+        {
+            MarginViewModel viewModel = new();
+            Ingredient addedIngredient = null;
+            viewModel.Ingredients.CollectionChanged += Ingredients_CollectionChanged;
+            viewModel.AddCommand.Execute(null);
+            bool mediatorHasBeenCalled = false;
+            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+
+            addedIngredient.Price += 3;
+
+            Assert.True(mediatorHasBeenCalled);
+
+            void Ingredients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            {
+                addedIngredient = (Ingredient)e.NewItems[0];
+            }
+
+            void UpdateTotalMediator_OnUpdate()
+            {
+                mediatorHasBeenCalled = true;
             }
         }
     }

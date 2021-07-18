@@ -1,10 +1,12 @@
 ﻿using ERP.Common.Models;
 using ERP.Models.Margin;
+using ERP.UI.Common.Commands;
 using ERP.UI.Common.Mediators;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace ERP.UI.Margin
 {
@@ -13,6 +15,8 @@ namespace ERP.UI.Margin
         public ObservableCollection<Ingredient> Ingredients { get => Get(); set => Set(value); }
 
         public IBindingUpdateMediator UpdateTotalMediator { get; private set; }
+        
+        public ICommand AddCommand { get; set; }
 
         public MarginViewModel()
         {
@@ -24,12 +28,14 @@ namespace ERP.UI.Margin
             UpdateTotalMediator = new UpdateTotalMediator();
 
             LinkIngredientsPriceToMediator();
+            InitializeCommands();
 
-            Ingredients = new()
-            {
-                new() { Name = "Sel", Price = 1.2 },
-                new() { Name = "Poivre", Price = 0.34 },
-            };
+            Ingredients = new();
+        }
+
+        private void InitializeCommands()
+        {
+            AddCommand = CommandBuilder.Build(AddCommandExecute);
         }
 
         private void LinkIngredientsPriceToMediator()
@@ -68,6 +74,12 @@ namespace ERP.UI.Margin
                 return;
 
             UpdateTotalMediator.Update();
+        }
+
+        private void AddCommandExecute()
+        {
+            Ingredient ingredient = new Ingredient();
+            Ingredients.Add(ingredient);
         }
     }
 
