@@ -18,6 +18,8 @@ namespace ERP.UI.Margin
         
         public ICommand AddCommand { get; set; }
 
+        public ICommand DeleteCommand { get; set; }
+
         public MarginViewModel()
         {
             Initialize();
@@ -36,6 +38,7 @@ namespace ERP.UI.Margin
         private void InitializeCommands()
         {
             AddCommand = CommandBuilder.Build(AddCommandExecute);
+            DeleteCommand = CommandBuilder.BuildWithParameter<Ingredient>(DeleteCommandExecute);
         }
 
         private void LinkIngredientsPriceToMediator()
@@ -80,6 +83,11 @@ namespace ERP.UI.Margin
         {
             Ingredient ingredient = new Ingredient();
             Ingredients.Add(ingredient);
+        }
+
+        private void DeleteCommandExecute(Ingredient ingredient)
+        {
+            _ = Ingredients.Remove(ingredient);
         }
     }
 

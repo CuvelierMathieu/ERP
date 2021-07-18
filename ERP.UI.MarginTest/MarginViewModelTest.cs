@@ -1,6 +1,7 @@
 ﻿using ERP.Models.Margin;
 using ERP.UI.Margin;
 using NUnit.Framework;
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 
@@ -115,6 +116,67 @@ namespace ERP.UI.MarginTest
             {
                 addedIngredient = (Ingredient)e.NewItems[0];
             }
+
+            void UpdateTotalMediator_OnUpdate()
+            {
+                mediatorHasBeenCalled = true;
+            }
+        }
+
+        [Test]
+        public void DeleteCommandRemovesIngredientFromList()
+        {
+            MarginViewModel viewModel = new();
+            Ingredient ingredient = new()
+            {
+                Name = Guid.NewGuid().ToString()
+            };
+
+            viewModel.Ingredients.Add(ingredient);
+
+            viewModel.DeleteCommand.Execute(ingredient);
+
+            Assert.False(viewModel.Ingredients.Any(i => i.Name == ingredient.Name));
+        }
+
+        [Test]
+        public void ChangePriceOfADeletedIngredientDoesntCallTheMediator()
+        {
+            MarginViewModel viewModel = new();
+            Ingredient ingredient = new()
+            {
+                Name = Guid.NewGuid().ToString()
+            };
+
+            viewModel.Ingredients.Add(ingredient);
+            viewModel.DeleteCommand.Execute(ingredient);
+            
+            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+
+            ingredient.Price += 4;
+
+            void UpdateTotalMediator_OnUpdate()
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void DeleteAnIngredientCallsTheMediator()
+        {
+            MarginViewModel viewModel = new();
+            Ingredient ingredient = new()
+            {
+                Name = Guid.NewGuid().ToString()
+            };
+
+            viewModel.Ingredients.Add(ingredient);
+            bool mediatorHasBeenCalled = false;
+            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+
+            viewModel.DeleteCommand.Execute(ingredient);
+
+            Assert.True(mediatorHasBeenCalled);
 
             void UpdateTotalMediator_OnUpdate()
             {

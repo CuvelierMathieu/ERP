@@ -5,12 +5,12 @@ namespace ERP.UI.Common.Commands
 {
     public static class CommandBuilder
     {
-        public static ICommand Build<T>(Action<T> execute)
+        public static ICommand BuildWithParameter<T>(Action<T> execute)
         {
-            return Build(execute, null);
+            return BuildWithParameter(execute, null);
         }
 
-        public static ICommand Build<T>(Action<T> execute, Func<T, bool> canExecute)
+        public static ICommand BuildWithParameter<T>(Action<T> execute, Func<T, bool> canExecute)
         {
             return new Command<T>(execute, canExecute);
         }
