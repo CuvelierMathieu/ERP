@@ -4,5 +4,6 @@
     
     <converters:ListToSumConverter x:Key="ListToSumConverter"/>
     <converters:SubstractMultiValueConverter x:Key="SubstractMultiValueConverter"/>
+    <converters:DividerMultiConverter x:Key="DividerMultiConverter"/>
 
 </ResourceDictionary>
