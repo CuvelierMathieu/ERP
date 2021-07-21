@@ -48,6 +48,8 @@ namespace ERP.UI.CommonTest.Converters
                 (new object[] { 10.0, 2m }, (double?)5.0),
                 (new object[] { 12f, "4" }, (double?)3.0),
                 (new object[] { "5.0", "-2,0" }, (double?)-2.5),
+                (new object[] { 5.0, string.Empty }, (double?)null),
+                (new object[] { "   ", 3.0 }, (double?)null),
             };
         }
 

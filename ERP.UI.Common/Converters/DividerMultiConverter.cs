@@ -16,7 +16,8 @@ namespace ERP.UI.Common.Converters
             if (values.Length != 2)
                 throw new ArgumentException("Converter can only convert exactly two values", nameof(values));
 
-            if (values.Any(v => v is null))
+            if (values.Any(v => v is null
+            || (v is string stringValue && string.IsNullOrWhiteSpace(stringValue))))
                 return null;
 
             Type firstValueType = values[0].GetType();

@@ -35,7 +35,8 @@
             <TextBlock Text="Bénéfice"
                        Grid.Row="2"/>
             <TextBlock Grid.Row="2"
-                       Grid.Column="1">
+                       Grid.Column="1"
+                       Name="BenefitsTextBlock">
                 <TextBlock.Text>
                     <MultiBinding Converter="{StaticResource SubstractMultiValueConverter}">
                         <Binding Path="SellPrice"/>
@@ -47,8 +48,14 @@
             <TextBlock Text="Marge"
                        Grid.Row="3"/>
             <TextBlock Grid.Row="3"
-                       Grid.Column="1"
-                       Text="n %"/>
+                       Grid.Column="1">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource DividerMultiConverter}">
+                        <Binding ElementName="BenefitsTextBlock" Path="Text"/>
+                        <Binding ElementName="TotalTextBlock" Path="Text"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </Grid>
 
         <DockPanel>
