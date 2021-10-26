@@ -8,6 +8,13 @@
       d:DataContext="{d:DesignInstance Type=local:MarginViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
+    <Page.Resources>
+
+        <Style TargetType="Button" x:Key="CircleButton">
+            <Setter Property="Foreground" Value="AliceBlue"/>
+        </Style>
+        
+    </Page.Resources>
     <DockPanel Grid.IsSharedSizeScope="True">
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -60,10 +67,18 @@
 
         <DockPanel>
 
-            <Button DockPanel.Dock="Bottom"
-                    Content="+"
-                    HorizontalAlignment="Right"
-                    Command="{Binding AddCommand}"/>
+            <Grid DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Action"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="+"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        Command="{Binding AddCommand}"
+                        Style="{StaticResource CircleButton}"/>
+            </Grid>
 
             <ItemsControl ItemsSource="{Binding Ingredients}">
                 <ItemsControl.ItemTemplate>
@@ -72,7 +87,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" SharedSizeGroup="Name"/>
                                 <ColumnDefinition Width="Auto" SharedSizeGroup="Price"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="Action"/>
                             </Grid.ColumnDefinitions>
                             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
