@@ -33,22 +33,45 @@ namespace ERP.UI.CommonTest.Converters
         }
 
         [Test]
-        public void ConvertAnArrayNotContainingExactlyTwoValuesThrowsArgumentException()
+        [TestCase(1)]
+        [TestCase(3)]
+        public void ConvertAnArrayNotContainingExactlyTwoValuesThrowsArgumentException(int length)
         {
-            Assert.Throws<ArgumentException>(() => converter.Convert(new object[3], DefaultTargetType, DefaultParameter, DefaultCulture));
+            Assert.Throws<ArgumentException>(() => converter.Convert(new object[length], DefaultTargetType, DefaultParameter, DefaultCulture));
+        }
+
+        [Test]
+        public void DivideByNullReturnsNull()
+        {
+            object actual = converter.Convert(new object[2] { 10, null }, DefaultTargetType, DefaultParameter, DefaultCulture);
+
+            Assert.IsNull(actual);
+        }
+
+        [Test]
+        public void DivideByEmptyStringReturnsNull()
+        {
+            object actual = converter.Convert(new object[2] { 10, string.Empty }, DefaultTargetType, DefaultParameter, DefaultCulture);
+
+            Assert.IsNull(actual);
+        }
+
+        [Test]
+        public void DivideNullByNotNullReturnsNull()
+        {
+            object actual = converter.Convert(new object[2] { null, 2 }, DefaultTargetType, DefaultParameter, DefaultCulture);
+
+            Assert.IsNull(actual);
         }
 
         private static object[] InputsAndExpectedResults()
         {
             return new object[]
             {
-                (new object[] { 10, null }, (double?)null),
-                (new object[] { null, 2 }, (double?)null),
                 (new object[] { 10, 2 }, (double?)5.0),
-                (new object[] { 10.0, 2m }, (double?)5.0),
+                (new object[] { 10.0, 5m }, (double?)2.0),
                 (new object[] { 12f, "4" }, (double?)3.0),
                 (new object[] { "5.0", "-2,0" }, (double?)-2.5),
-                (new object[] { 5.0, string.Empty }, (double?)null),
                 (new object[] { "   ", 3.0 }, (double?)null),
             };
         }
