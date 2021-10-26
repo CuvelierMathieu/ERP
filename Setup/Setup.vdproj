@@ -64,10 +64,15 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.6.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Runtime .NET 6.0.0-rc.2 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.6.0.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.6.0.x86"
+                    {
+                    "Name" = "8:Runtime .NET 6.0.0-rc.2 (x86)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.6.0.x86"
                     }
                 }
             }
@@ -852,7 +857,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_579A9F7965604614BEFF00AEE1DCF151"
             {
-            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net5.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5DA8D2BC0B3B4FE68BB920FCA79BD144"
@@ -908,7 +913,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6E60A81093114F9FBC887073F868E46D"
             {
-            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net5.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5DA8D2BC0B3B4FE68BB920FCA79BD144"
@@ -936,7 +941,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7A791B7ABDC74432A20A216599DAD45B"
             {
-            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net5.0-windows\\ERP.UI.dll"
+            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net6.0-windows\\ERP.UI.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5DA8D2BC0B3B4FE68BB920FCA79BD144"
@@ -1048,7 +1053,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD89EDEB21D24EB1B0E9116998E3D154"
             {
-            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net5.0-windows\\ERP.UI.dll"
+            "SourcePath" = "8:..\\ERP.UI\\obj\\Debug\\net6.0-windows\\ERP.UI.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5DA8D2BC0B3B4FE68BB920FCA79BD144"
