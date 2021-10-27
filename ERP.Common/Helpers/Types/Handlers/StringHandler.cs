@@ -17,7 +17,7 @@
 
         public object GetDefaultValue()
         {
-            return default(string);
+            return string.Empty;
         }
     }
 }

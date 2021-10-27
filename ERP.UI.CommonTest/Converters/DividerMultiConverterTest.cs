@@ -9,21 +9,17 @@ namespace ERP.UI.CommonTest.Converters
     public class DividerMultiConverterTest
     {
         private static readonly Type DefaultTargetType = typeof(double);
-        private static readonly object DefaultParameter = null;
+        private static readonly object DefaultParameter = new();
         private static readonly CultureInfo DefaultCulture = CultureInfo.InvariantCulture;
 
-        private DividerMultiConverter converter;
-
-        [SetUp]
-        public void InitializeConverter()
-        {
-            converter = new();
-        }
+        private readonly DividerMultiConverter converter = new();
 
         [Test]
         public void ConvertANullArrayThrowsArgumentNullException()
         {
+#nullable disable warnings
             Assert.Throws<ArgumentNullException>(() => converter.Convert(null, DefaultTargetType, DefaultParameter, DefaultCulture));
+#nullable restore warnings
         }
 
         [Test]
@@ -41,27 +37,47 @@ namespace ERP.UI.CommonTest.Converters
         }
 
         [Test]
-        public void DivideByNullReturnsNull()
+        public void DivideByNullReturnsDefaultObject()
         {
+#nullable disable warnings
             object actual = converter.Convert(new object[2] { 10, null }, DefaultTargetType, DefaultParameter, DefaultCulture);
+#nullable restore warnings
 
-            Assert.IsNull(actual);
+            AssertIsADefaultObject(actual);
+        }
+
+        private void AssertIsADefaultObject(object obj)
+        {
+            Assert.IsNotNull(obj);
+            Assert.IsNull(obj.GetType().BaseType);
         }
 
         [Test]
-        public void DivideByEmptyStringReturnsNull()
+        public void DivideByEmptyStringReturnsDefaultObject()
         {
             object actual = converter.Convert(new object[2] { 10, string.Empty }, DefaultTargetType, DefaultParameter, DefaultCulture);
 
-            Assert.IsNull(actual);
+            AssertIsADefaultObject(actual);
         }
 
         [Test]
-        public void DivideNullByNotNullReturnsNull()
+        public void DivideNullByNotNullReturnsDefaultObject()
         {
+#nullable disable warnings
             object actual = converter.Convert(new object[2] { null, 2 }, DefaultTargetType, DefaultParameter, DefaultCulture);
+#nullable restore warnings
 
-            Assert.IsNull(actual);
+            AssertIsADefaultObject(actual);
+        }
+
+        [Test]
+        public void DivideWhiteSpaceStringByNotNullReturnsDefaultObject()
+        {
+#nullable disable warnings
+            object actual = converter.Convert(new object[2] { "   ", 2 }, DefaultTargetType, DefaultParameter, DefaultCulture);
+#nullable restore warnings
+
+            AssertIsADefaultObject(actual);
         }
 
         private static object[] InputsAndExpectedResults()
@@ -72,7 +88,6 @@ namespace ERP.UI.CommonTest.Converters
                 (new object[] { 10.0, 5m }, (double?)2.0),
                 (new object[] { 12f, "4" }, (double?)3.0),
                 (new object[] { "5.0", "-2,0" }, (double?)-2.5),
-                (new object[] { "   ", 3.0 }, (double?)null),
             };
         }
 

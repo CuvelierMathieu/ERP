@@ -10,9 +10,11 @@ namespace ERP.Common.Models
     {
         private IPropertyValueManager propertyValueManager;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
+#nullable disable warnings
         protected BaseModel()
+#nullable restore warnings
         {
             InitializePropertyValueManager();
         }
@@ -22,12 +24,16 @@ namespace ERP.Common.Models
             PropertyChanged?.Invoke(this, new(propertyName));
         }
 
+#nullable disable warnings
         protected dynamic Get([CallerMemberName] string propertyName = null)
+#nullable restore warnings
         {
             return propertyValueManager.Get(propertyName);
         }
 
+#nullable disable warnings
         protected void Set<T>(T value, [CallerMemberName] string propertyName = null)
+#nullable restore warnings
         {
             T previousValue = Get(propertyName);
 

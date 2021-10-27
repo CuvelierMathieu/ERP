@@ -9,16 +9,10 @@ namespace ERP.UI.CommonTest.Converters
     public class SubstractMultiValueConverterTest
     {
         private static readonly Type DefaultTargetType = typeof(double);
-        private static readonly object DefaultParameter = null;
+        private static readonly object? DefaultParameter = null;
         private static readonly CultureInfo DefaultCulture = CultureInfo.InvariantCulture;
 
-        private SubstractMultiValueConverter converter;
-
-        [SetUp]
-        public void InitializeConverter()
-        {
-            converter = new();
-        }
+        private readonly SubstractMultiValueConverter converter = new();
 
         [Test]
         public void ConvertNullArrayThrowsArgumentNullException()
@@ -45,8 +39,8 @@ namespace ERP.UI.CommonTest.Converters
             return new object[]
             {
                 (new object[] { 10, 2, 3, 4 }, 1.0),
-                (new object[] { 10, null, 3, 4 }, 3.0),
-                (new object[] { null, 1, 3, 4 }, -8.0),
+                (new object?[] { 10, null, 3, 4 }, 3.0),
+                (new object?[] { null, 1, 3, 4 }, -8.0),
                 (new object[] { 10.0, 2m, 3f, "4", "5.0", "1,0", }, -5.0),
             };
         }

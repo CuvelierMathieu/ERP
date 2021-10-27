@@ -10,8 +10,12 @@ namespace ERP.Common.Helpers.Builders
             Type baseType = typeof(PropertyValueManager<BaseModel>);
             Type genericDefinition = baseType.GetGenericTypeDefinition();
             Type aimedType = genericDefinition.MakeGenericType(type);
+            object? createdInstance = Activator.CreateInstance(aimedType);
 
-            IPropertyValueManager defaultValue = (IPropertyValueManager)Activator.CreateInstance(aimedType);
+            if (createdInstance is null)
+                throw new InvalidOperationException($"Failed to create an instance for type {type.FullName}.");
+
+            IPropertyValueManager defaultValue = (IPropertyValueManager)createdInstance;
 
             return defaultValue;
         }

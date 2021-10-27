@@ -13,7 +13,7 @@ namespace ERP.UI.Common.Components
             typeof(UpdatableTextBlock),
             new(OnMediatorPropertyChanged));
 
-        public IBindingUpdateMediator Mediator
+        public IBindingUpdateMediator? Mediator
         {
             get => GetValue(MediatorProperty) as IBindingUpdateMediator;
             set => SetValue(MediatorProperty, value);

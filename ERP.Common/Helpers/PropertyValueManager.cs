@@ -29,7 +29,9 @@ namespace ERP.Common.Helpers
 
         public void Set<PropertyType>(PropertyType value, string propertyName)
         {
+#nullable disable warnings
             valuesDictionary[propertyName] = value;
+#nullable restore warnings
         }
 
         private bool PropertyIsNotInDictionary(string propertyName)
@@ -56,16 +58,21 @@ namespace ERP.Common.Helpers
 
             try
             {
-                object defaultValue = Activator.CreateInstance(type);
+                object? defaultValue = Activator.CreateInstance(type);
+
+                if (defaultValue is null)
+                    throw new ArgumentException($"Failed to create instance for type {type}.");
 
                 return defaultValue;
             }
             catch
             {
                 ITypeHandler typeHandler = TypeHandlerBuilder.Build(type);
-                object defaultValue = typeHandler.GetDefaultValue();
+                object? defaultValue = typeHandler.GetDefaultValue();
 
+#nullable disable warnings
                 return defaultValue;
+#nullable restore warnings
             }
         }
 

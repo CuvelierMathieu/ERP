@@ -6,6 +6,7 @@
 	
   <PropertyGroup>
     <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

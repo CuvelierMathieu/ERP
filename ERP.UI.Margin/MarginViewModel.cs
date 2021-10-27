@@ -14,11 +14,11 @@ namespace ERP.UI.Margin
     {
         public ObservableCollection<Ingredient> Ingredients { get => Get(); set => Set(value); }
 
-        public IBindingUpdateMediator UpdateTotalMediator { get; private set; }
+        public IBindingUpdateMediator? UpdateTotalMediator { get; private set; }
         
-        public ICommand AddCommand { get; set; }
+        public ICommand? AddCommand { get; set; }
 
-        public ICommand DeleteCommand { get; set; }
+        public ICommand? DeleteCommand { get; set; }
 
         public double SellPrice { get => Get(); set => Set(value); }
 
@@ -48,7 +48,7 @@ namespace ERP.UI.Margin
             PropertyChanged += OnIngredientListChanged;
         }
 
-        private void OnIngredientListChanged(object sender, PropertyChangedEventArgs e)
+        private void OnIngredientListChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e?.PropertyName != nameof(Ingredients)
                 || Ingredients is null)
@@ -60,7 +60,7 @@ namespace ERP.UI.Margin
                 item.PropertyChanged += UpdateTotalWhenPriceIsChanged;
         }
 
-        private void Ingredients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Ingredients_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems is not null)
                 foreach (Ingredient item in e.OldItems)
@@ -70,15 +70,15 @@ namespace ERP.UI.Margin
                 foreach (Ingredient item in e.NewItems)
                     item.PropertyChanged += UpdateTotalWhenPriceIsChanged;
 
-            UpdateTotalMediator.Update();
+            UpdateTotalMediator?.Update();
         }
 
-        private void UpdateTotalWhenPriceIsChanged(object sender, PropertyChangedEventArgs e)
+        private void UpdateTotalWhenPriceIsChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e?.PropertyName != nameof(Ingredient.Price))
                 return;
 
-            UpdateTotalMediator.Update();
+            UpdateTotalMediator?.Update();
         }
 
         private void AddCommandExecute()
@@ -87,15 +87,16 @@ namespace ERP.UI.Margin
             Ingredients.Add(ingredient);
         }
 
-        private void DeleteCommandExecute(Ingredient ingredient)
+        private void DeleteCommandExecute(Ingredient? ingredient)
         {
-            _ = Ingredients.Remove(ingredient);
+            if (ingredient is not null)
+                _ = Ingredients.Remove(ingredient);
         }
     }
 
     public class UpdateTotalMediator : IBindingUpdateMediator
     {
-        public event Action OnUpdate;
+        public event Action? OnUpdate;
 
         public void Update() => OnUpdate?.Invoke();
     }

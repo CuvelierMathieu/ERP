@@ -8,31 +8,35 @@ namespace ERP.UI.Common.Converters
 {
     public class ListToSumConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is null)
                 return 0;
 
             if (value is string
                 || value is not IEnumerable list)
-                throw new ArgumentException("Value is expected to be a IEnumerable");
+                throw new ArgumentException("Value is expected to be a IEnumerable.");
 
             double sum = 0;
             IEnumerator enumerator = list.GetEnumerator();
-            PropertyInfo propertyInfo = null;
+            PropertyInfo? propertyInfo = null;
 
             while (enumerator.MoveNext())
             {
-                object current = enumerator.Current;
+                object? current = enumerator.Current;
 
                 if (propertyInfo is not null)
                     current = propertyInfo.GetValue(current);
                 else if (parameter is string stringParameter)
                 {
                     if (string.IsNullOrWhiteSpace(stringParameter))
-                        throw new ArgumentException("Parameter is empty or white space");
+                        throw new ArgumentException("Parameter is empty or white space.");
 
                     propertyInfo = enumerator.Current.GetType().GetProperty(stringParameter);
+
+                    if (propertyInfo is null)
+                        throw new ArgumentException("Parameter does not match any of the value properties.");
+
                     current = propertyInfo.GetValue(current);
                 }
 
@@ -43,7 +47,7 @@ namespace ERP.UI.Common.Converters
                 else if (current is decimal currentDecimalValue)
                     sum += double.Parse(currentDecimalValue.ToString());
                 else if (parameter is null)
-                    throw new ArgumentException("Current item type is not handled by converter and parameter is null");
+                    throw new ArgumentException("Current item type is not handled by converter and parameter is null.");
             }
 
             if (targetType == typeof(string))
@@ -58,7 +62,7 @@ namespace ERP.UI.Common.Converters
             if (targetType == typeof(int))
                 return (int)Math.Round(sum);
 
-            throw new NotImplementedException($"Converter is not handled to target type {targetType}");
+            throw new NotImplementedException($"Converter is not handled to target type {targetType}.");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -13,12 +13,12 @@ namespace ERP.CommonTest.Helpers
         [Test]
         public void CanGetProperties()
         {
-            PropertyInfo[] propertyInfos = null;
+            PropertyInfo[]? propertyInfos = null;
 
             Assert.DoesNotThrow(() => propertyInfos = ReflectionCache.GetPropertiesForType(typeof(ReflectionCacheTest)));
             Assert.IsNotNull(propertyInfos);
 
-            PropertyInfo property = propertyInfos.Single(p => p.Name == nameof(PropertyToBeRetrievedInTests));
+            PropertyInfo? property = propertyInfos?.Single(p => p.Name == nameof(PropertyToBeRetrievedInTests));
         }
     }
 }

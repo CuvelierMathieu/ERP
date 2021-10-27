@@ -2,7 +2,7 @@
 {
     public interface ITypeHandler
     {
-        object GetDefaultValue();
+        object? GetDefaultValue();
 
         double ConvertToDouble(object value);
     }

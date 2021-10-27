@@ -18,7 +18,7 @@ namespace ERP.UI.Common.Converters
 
             if (values.Any(v => v is null
             || (v is string stringValue && string.IsNullOrWhiteSpace(stringValue))))
-                return null;
+                return new();
 
             Type firstValueType = values[0].GetType();
             Type secondValueType = values[1].GetType();

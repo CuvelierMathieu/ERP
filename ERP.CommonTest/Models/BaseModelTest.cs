@@ -55,7 +55,7 @@ namespace ERP.CommonTest.Models
 
             Assert.True(hasBeenCalled);
 
-            void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
             {
                 hasBeenCalled = true;
             }
@@ -70,11 +70,11 @@ namespace ERP.CommonTest.Models
 
             model.PropertyChanged += Model_PropertyChanged;
 
-            model.Name = null;
+            model.Name = string.Empty;
 
             Assert.True(hasBeenCalled);
 
-            void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
             {
                 hasBeenCalled = true;
             }
@@ -88,15 +88,14 @@ namespace ERP.CommonTest.Models
             ModelForBaseModelTest model = new();
             bool hasBeenCalled = false;
             
-            string name = Guid.NewGuid().ToString();
-            model.Name = name;
+            model.Name = value;
 
             model.PropertyChanged += Model_PropertyChanged;
-            model.Name = name;
+            model.Name = value;
 
             Assert.False(hasBeenCalled);
 
-            void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
             {
                 hasBeenCalled = true;
             }

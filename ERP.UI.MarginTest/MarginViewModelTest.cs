@@ -21,7 +21,8 @@ namespace ERP.UI.MarginTest
             };
 
             bool hasBeenCalled = false;
-            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+            if (viewModel.UpdateTotalMediator is not null)
+                viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
 
             viewModel.Ingredients.Single().Price += 3;
 
@@ -44,7 +45,8 @@ namespace ERP.UI.MarginTest
             };
 
             bool hasBeenCalled = false;
-            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+            if (viewModel.UpdateTotalMediator is not null)
+                viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
 
             viewModel.Ingredients.Add(new() { Price = -8 });
 
@@ -68,7 +70,8 @@ namespace ERP.UI.MarginTest
             };
 
             bool hasBeenCalled = false;
-            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+            if (viewModel.UpdateTotalMediator is not null)
+                viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
 
             viewModel.Ingredients.RemoveAt(1);
 
@@ -88,11 +91,11 @@ namespace ERP.UI.MarginTest
                 expected = 1;
             viewModel.Ingredients.CollectionChanged += Ingredients_CollectionChanged;
 
-            viewModel.AddCommand.Execute(null);
+            viewModel.AddCommand?.Execute(null);
 
             Assert.AreEqual(expected, quantityOfIngredientsAdded);
 
-            void Ingredients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            void Ingredients_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
             {
                 quantityOfIngredientsAdded += e.NewItems?.Count ?? 0;
             }
@@ -102,19 +105,22 @@ namespace ERP.UI.MarginTest
         public void ChangePriceOfANewlyAddedIngredientCallsTheMediator()
         {
             MarginViewModel viewModel = new();
-            Ingredient addedIngredient = null;
+            Ingredient addedIngredient = new();
             viewModel.Ingredients.CollectionChanged += Ingredients_CollectionChanged;
-            viewModel.AddCommand.Execute(null);
-            bool mediatorHasBeenCalled = false;
-            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+            viewModel.AddCommand?.Execute(null);
+            bool mediatorHasBeenCalled = false; 
+            
+            if (viewModel.UpdateTotalMediator is not null)
+                viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
 
             addedIngredient.Price += 3;
 
             Assert.True(mediatorHasBeenCalled);
 
-            void Ingredients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            void Ingredients_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
             {
-                addedIngredient = (Ingredient)e.NewItems[0];
+                if (e.NewItems is not null && e.NewItems[0] is Ingredient ingredient)
+                    addedIngredient = ingredient;
             }
 
             void UpdateTotalMediator_OnUpdate()
@@ -134,7 +140,7 @@ namespace ERP.UI.MarginTest
 
             viewModel.Ingredients.Add(ingredient);
 
-            viewModel.DeleteCommand.Execute(ingredient);
+            viewModel.DeleteCommand?.Execute(ingredient);
 
             Assert.False(viewModel.Ingredients.Any(i => i.Name == ingredient.Name));
         }
@@ -149,13 +155,14 @@ namespace ERP.UI.MarginTest
             };
 
             viewModel.Ingredients.Add(ingredient);
-            viewModel.DeleteCommand.Execute(ingredient);
-            
-            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+            viewModel.DeleteCommand?.Execute(ingredient);
+
+            if (viewModel.UpdateTotalMediator is not null)
+                viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
 
             ingredient.Price += 4;
 
-            void UpdateTotalMediator_OnUpdate()
+            static void UpdateTotalMediator_OnUpdate()
             {
                 Assert.Fail();
             }
@@ -172,9 +179,11 @@ namespace ERP.UI.MarginTest
 
             viewModel.Ingredients.Add(ingredient);
             bool mediatorHasBeenCalled = false;
-            viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
 
-            viewModel.DeleteCommand.Execute(ingredient);
+            if (viewModel.UpdateTotalMediator is not null)
+                viewModel.UpdateTotalMediator.OnUpdate += UpdateTotalMediator_OnUpdate;
+
+            viewModel.DeleteCommand?.Execute(ingredient);
 
             Assert.True(mediatorHasBeenCalled);
 

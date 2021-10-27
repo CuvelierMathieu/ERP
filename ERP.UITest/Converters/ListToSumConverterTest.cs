@@ -49,13 +49,7 @@ namespace ERP.UITest.Converters
         private const string DefaultParameter = null;
         private static readonly CultureInfo DefaultCulture = CultureInfo.InvariantCulture;
 
-        private ListToSumConverter _converter;
-
-        [SetUp]
-        public void InitializeConverter()
-        {
-            _converter = new();
-        }
+        private readonly ListToSumConverter _converter = new();
 
         [Test]
         [TestCase("")]
@@ -202,6 +196,19 @@ namespace ERP.UITest.Converters
             };
 
             Assert.Throws<ArgumentException>(() => _converter.Convert(list, DefaultTargetType, parameter, DefaultCulture));
+        }
+
+        [Test]
+        public void ThrowAnArgumentExceptionIfValueIsAComplexObjectAndParameterDoesNotMatchAnyPropertyName()
+        {
+            List<ComplexObjectForTestingListToSumConverter> list = new()
+            {
+                new() { Value = 3.14 }
+            };
+
+            string randomParameterName = Guid.NewGuid().ToString();
+
+            Assert.Throws<ArgumentException>(() => _converter.Convert(list, DefaultTargetType, randomParameterName, DefaultCulture));
         }
 
         [Test]

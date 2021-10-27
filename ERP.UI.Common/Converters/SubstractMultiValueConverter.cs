@@ -9,7 +9,7 @@ namespace ERP.UI.Common.Converters
 {
     public class SubstractMultiValueConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[]? values, Type targetType, object? parameter, CultureInfo culture)
         {
             if (values is null || !values.Any())
                 throw new ArgumentNullException(nameof(values));
