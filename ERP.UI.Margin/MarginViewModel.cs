@@ -2,11 +2,12 @@
 using ERP.Models.Margin;
 using ERP.UI.Common.Commands;
 using ERP.UI.Common.Mediators;
-using System;
+using ERP.UI.Margin.IoC;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
+using Unity;
 
 namespace ERP.UI.Margin
 {
@@ -29,12 +30,16 @@ namespace ERP.UI.Margin
 
         private void Initialize()
         {
-            UpdateTotalMediator = new UpdateTotalMediator();
-
+            InstantiateMediator();
             LinkIngredientsPriceToMediator();
             InitializeCommands();
 
             Ingredients = new();
+        }
+
+        private void InstantiateMediator()
+        {
+            UpdateTotalMediator = MarginContainer.Instance.Resolve<IBindingUpdateMediator>();
         }
 
         private void InitializeCommands()
@@ -92,12 +97,5 @@ namespace ERP.UI.Margin
             if (ingredient is not null)
                 _ = Ingredients.Remove(ingredient);
         }
-    }
-
-    public class UpdateTotalMediator : IBindingUpdateMediator
-    {
-        public event Action? OnUpdate;
-
-        public void Update() => OnUpdate?.Invoke();
     }
 }
