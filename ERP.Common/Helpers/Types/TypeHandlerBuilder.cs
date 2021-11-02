@@ -1,10 +1,27 @@
 ﻿using ERP.Common.Helpers.Types.Handlers;
 using System;
+using Unity;
 
 namespace ERP.Common.Helpers.Types
 {
     public static class TypeHandlerBuilder
     {
+        private static readonly IUnityContainer _container = GetContainer();
+
+        private static IUnityContainer GetContainer()
+        {
+            IUnityContainer container = new UnityContainer();
+
+            container.RegisterType<ITypeHandler, StringHandler>(name: typeof(string).FullName);
+            container.RegisterType<ITypeHandler, DoubleHandler>(name: typeof(double).FullName);
+            container.RegisterType<ITypeHandler, IntHandler>(name: typeof(int).FullName);
+            container.RegisterType<ITypeHandler, DateTimeHandler>(name: typeof(DateTime).FullName);
+            container.RegisterType<ITypeHandler, DecimalHandler>(name: typeof(decimal).FullName);
+            container.RegisterType<ITypeHandler, FloatHandler>(name: typeof(float).FullName);
+
+            return container;
+        }
+
         public static ITypeHandler Build<T>()
         {
             return Build(typeof(T));
@@ -12,25 +29,7 @@ namespace ERP.Common.Helpers.Types
 
         public static ITypeHandler Build(Type type)
         {
-            if (type == typeof(string))
-                return new StringHandler();
-
-            if (type == typeof(double))
-                return new DoubleHandler();
-
-            if (type == typeof(int))
-                return new IntHandler();
-
-            if (type == typeof(DateTime))
-                return new DateTimeHandler();
-
-            if (type == typeof(decimal))
-                return new DecimalHandler();
-
-            if (type == typeof(float))
-                return new FloatHandler();
-
-            throw new NotImplementedException($"Type {type} is not handled");
+            return _container.Resolve<ITypeHandler>(type.FullName);
         }
     }
 }

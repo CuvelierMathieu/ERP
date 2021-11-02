@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Unity.Container" Version="5.11.11" />
+  </ItemGroup>
+
 </Project>

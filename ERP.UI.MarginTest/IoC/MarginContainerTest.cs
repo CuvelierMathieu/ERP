@@ -32,6 +32,13 @@ namespace ERP.UI.MarginTest.IoC
         }
 
         [Test]
+        public void TryingToResolveUnregisteredInterfaceThrows()
+        {
+            MarginContainer container = MarginContainer.Instance;
+            Assert.Throws<ResolutionFailedException>(() => container.Resolve<IUnregisteredInterface>());
+        }
+
+        [Test]
         public void ContainerIsASingleton()
         {
             MarginContainer firstCall = MarginContainer.Instance;
@@ -68,5 +75,8 @@ namespace ERP.UI.MarginTest.IoC
 
             Assert.AreEqual(resolvedObject.GetType(), classType);
         }
+
+        private interface IUnregisteredInterface
+        { }
     }
 }
