@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mainwindowparts="clr-namespace:ERP.UI.MainWindowParts"
+        xmlns:resources="clr-namespace:ERP.Common.Resources;assembly=ERP.Common" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{x:Static resources:Global.ApplicationName}"
+        Height="450"
+        Width="800">
     <DockPanel>
         <mainwindowparts:MenuBar DockPanel.Dock="Top"/>
         <mainwindowparts:Footer DockPanel.Dock="Bottom"/>

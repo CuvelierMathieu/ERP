@@ -5,7 +5,13 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>992747.ico</ApplicationIcon>
+    <IsPublishable>True</IsPublishable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="992747.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ERP.UI.Margin\ERP.UI.Margin.csproj" />
