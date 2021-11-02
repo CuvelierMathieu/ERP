@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using System.Windows;
+using ERP.Common.Resources;
 
 namespace ERP.UI
 {
@@ -13,6 +9,13 @@ namespace ERP.UI
     /// </summary>
     public partial class App : Application
     {
+        public string Version { get; private set; }
+
+        public App() : base()
+        {
+            Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? Global.VersionNotFound;
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             DispatcherUnhandledException += App_DispatcherUnhandledException;

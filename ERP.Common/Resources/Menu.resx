@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationName" xml:space="preserve">
-    <value>Bakery</value>
+  <data name="About" xml:space="preserve">
+    <value>À propos</value>
   </data>
-  <data name="VersionNotFound" xml:space="preserve">
-    <value>N/A</value>
+  <data name="File" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aide</value>
   </data>
 </root>
