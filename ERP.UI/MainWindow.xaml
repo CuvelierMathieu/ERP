@@ -12,7 +12,7 @@
     <DockPanel>
         <mainwindowparts:MenuBar DockPanel.Dock="Top"/>
         <mainwindowparts:Footer DockPanel.Dock="Bottom"/>
-        <mainwindowparts:NavigationMenu DockPanel.Dock="Left"/>
+        <mainwindowparts:NavigationMenu DockPanel.Dock="Left" Visibility="Collapsed"/>
         <mainwindowparts:MainFrame/>
     </DockPanel>
 </Window>
