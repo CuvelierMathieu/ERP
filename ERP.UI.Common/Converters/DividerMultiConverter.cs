@@ -10,9 +10,8 @@ namespace ERP.UI.Common.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values is null || !values.Any())
-                throw new ArgumentNullException(nameof(values));
-
+            ArgumentNullException.ThrowIfNull(values);
+            
             if (values.Length != 2)
                 throw new ArgumentException("Converter can only convert exactly two values", nameof(values));
 

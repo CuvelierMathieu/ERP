@@ -23,9 +23,9 @@ namespace ERP.UI.CommonTest.Converters
         }
 
         [Test]
-        public void ConvertAnEmptyArrayThrowsArgumentNullException()
+        public void ConvertAnEmptyArrayThrowsArgumentException()
         {
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(Array.Empty<object>(), DefaultTargetType, DefaultParameter, DefaultCulture));
+            Assert.Throws<ArgumentException>(() => converter.Convert(Array.Empty<object>(), DefaultTargetType, DefaultParameter, DefaultCulture));
         }
 
         [Test]

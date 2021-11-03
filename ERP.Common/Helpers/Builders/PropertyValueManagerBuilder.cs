@@ -13,7 +13,7 @@ namespace ERP.Common.Helpers.Builders
             object? createdInstance = Activator.CreateInstance(aimedType);
 
             if (createdInstance is null)
-                throw new InvalidOperationException($"Failed to create an instance for type {type.FullName}.");
+                throw new ArgumentException($"Failed to create an instance for type {type}.");
 
             IPropertyValueManager defaultValue = (IPropertyValueManager)createdInstance;
 
