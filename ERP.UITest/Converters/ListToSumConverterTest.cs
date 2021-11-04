@@ -1,4 +1,5 @@
-﻿using ERP.UI.Common.Converters;
+﻿using ERP.Common.Helpers.Types;
+using ERP.UI.Common.Converters;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -228,6 +229,8 @@ namespace ERP.UITest.Converters
         [Test]
         public void ConverterOnAComplexObjectListTakesMaxTenTimesMoreTimeThanLinq()
         {
+            InitializeTypeHandlerBuilderToAvoidWasteOfTime();
+
             List<ComplexObjectForTestingListToSumConverter> list = DefaultValue
                 .Select(d => new ComplexObjectForTestingListToSumConverter() { Value = d })
                 .ToList();
@@ -248,6 +251,11 @@ namespace ERP.UITest.Converters
             long elapsedTimeForConverter = stopwatch.ElapsedTicks;
 
             Assert.LessOrEqual(elapsedTimeForConverter, maxAcceptableTime);
+        }
+
+        private void InitializeTypeHandlerBuilderToAvoidWasteOfTime()
+        {
+            _ = TypeHandlerBuilder.Build<int>();
         }
     }
 

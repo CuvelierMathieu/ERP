@@ -5,5 +5,7 @@
         object? GetDefaultValue();
 
         double ConvertToDouble(object value);
+
+        object ConvertFromDouble(double value);
     }
 }

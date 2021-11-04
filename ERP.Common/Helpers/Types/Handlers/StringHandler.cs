@@ -2,6 +2,11 @@
 {
     public class StringHandler : ITypeHandler
     {
+        public object ConvertFromDouble(double value)
+        {
+            return value.ToString();
+        }
+
         public double ConvertToDouble(object value)
         {
             try

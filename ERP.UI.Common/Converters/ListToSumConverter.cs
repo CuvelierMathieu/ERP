@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ERP.Common.Helpers.Types;
+using System;
 using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Data;
+using Unity;
 
 namespace ERP.UI.Common.Converters
 {
@@ -20,6 +22,7 @@ namespace ERP.UI.Common.Converters
             double sum = 0;
             IEnumerator enumerator = list.GetEnumerator();
             PropertyInfo? propertyInfo = null;
+            ITypeHandler? typeHandler = null;
 
             while (enumerator.MoveNext())
             {
@@ -40,29 +43,36 @@ namespace ERP.UI.Common.Converters
                     current = propertyInfo.GetValue(current);
                 }
 
-                if (current is double currentDoubleValue)
-                    sum += currentDoubleValue;
-                else if (current is int currentIntValue)
-                    sum += currentIntValue;
-                else if (current is decimal currentDecimalValue)
-                    sum += double.Parse(currentDecimalValue.ToString());
-                else if (parameter is null)
-                    throw new ArgumentException("Current item type is not handled by converter and parameter is null.");
+                if (current is null)
+                    continue;
+
+                try
+                {
+                    if (typeHandler is null && current is not null)
+                        typeHandler = TypeHandlerBuilder.Build(current.GetType());
+                }
+                catch (ResolutionFailedException exception)
+                {
+                    throw new ArgumentException("Current item type is not handled and parameter is null.", exception);
+                }
+                catch
+                {
+                    throw;
+                }
+
+                if (typeHandler is null)
+                    throw new InvalidOperationException("Type handler has not been initialized.");
+
+#nullable disable warnings
+                double currentAsDouble = typeHandler.ConvertToDouble(current);
+#nullable restore warnings
+
+                sum += currentAsDouble;
             }
 
-            if (targetType == typeof(string))
-                return sum.ToString();
+            ITypeHandler targetTypeHandler = TypeHandlerBuilder.Build(targetType);
 
-            if (targetType == typeof(double))
-                return sum;
-
-            if (targetType == typeof(decimal))
-                return decimal.Parse(sum.ToString());
-
-            if (targetType == typeof(int))
-                return (int)Math.Round(sum);
-
-            throw new NotImplementedException($"Converter is not handled to target type {targetType}.");
+            return targetTypeHandler.ConvertFromDouble(sum);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
