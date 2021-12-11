@@ -8,8 +8,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Converters.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/DefaultColors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Colors.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/MenuStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Styles/Controls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

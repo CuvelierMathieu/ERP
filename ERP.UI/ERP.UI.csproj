@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ERP.UI.Demo\ERP.UI.Demo.csproj" />
     <ProjectReference Include="..\ERP.UI.Margin\ERP.UI.Margin.csproj" />
   </ItemGroup>
 

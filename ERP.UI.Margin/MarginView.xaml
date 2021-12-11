@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ERP.UI.Margin"
       xmlns:components="clr-namespace:ERP.UI.Common.Components;assembly=ERP.UI.Common" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       d:DataContext="{d:DesignInstance Type=local:MarginViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
@@ -76,8 +77,8 @@
                 <Button Content="+"
                         Grid.Column="2"
                         HorizontalAlignment="Right"
-                        Command="{Binding AddCommand}"
-                        Style="{StaticResource CircleButton}"/>
+                        Width="30" Height="30"
+                        Command="{Binding AddCommand}"/>
             </Grid>
 
             <ItemsControl ItemsSource="{Binding Ingredients}">
@@ -90,8 +91,11 @@
                                 <ColumnDefinition Width="Auto" SharedSizeGroup="Action"/>
                             </Grid.ColumnDefinitions>
                             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
-                                     Grid.Column="1"/>
+                            <!--<TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
+                                     Grid.Column="1"/>-->
+                            <mah:NumericUpDown Value="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
+                                               Grid.Column="1"
+                                               Interval="0.1"/>
                             <Button Grid.Column="2"
                                     Content="Delete"
                                     Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MarginView}, Path=DataContext.DeleteCommand}"

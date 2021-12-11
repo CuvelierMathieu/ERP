@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--COLORS DEFINITION-->
+    <Color x:Key="Colors.Accent.Heavy">#F77F00</Color>
+    <Color x:Key="Colors.Accent">#FCBF49</Color>
+    <Color x:Key="Colors.Accent.Light">#EAE2B7</Color>
+    <Color x:Key="Colors.Accent.DeepDark">#003049</Color>
+
+    <Color x:Key="Colors.Foreground">Black</Color>
+    <Color x:Key="Colors.Foreground.OnDeepDark">White</Color>
+
+    <Color x:Key="Colors.Warning">#D62828</Color>
+
+    <Color x:Key="Colors.Gray.Light">#D1D1D1</Color>
+    
+    <!--BRUSHES-->
+    <SolidColorBrush x:Key="Accent.Heavy" Color="{StaticResource Colors.Accent.Heavy}"/>
+    <SolidColorBrush x:Key="Accent" Color="{StaticResource Colors.Accent}"/>
+    <SolidColorBrush x:Key="Accent.Light" Color="{StaticResource Colors.Accent.Light}"/>
+
+    <SolidColorBrush x:Key="ERP.Brushes.Warning" Color="{StaticResource Colors.Warning}"/>
+
+    <SolidColorBrush x:Key="ERP.Brushes.Gray.Light" Color="{StaticResource Colors.Gray.Light}"/>
+
+    <!--STYLES COLORS-->
+    <!--Button-->
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Background" Color="{StaticResource Colors.Accent}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground" Color="{StaticResource Colors.Foreground}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Background.MouseOver" Color="{StaticResource Colors.Accent.Heavy}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.MouseOver" Color="{StaticResource Colors.Foreground}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Background.Pressed" Color="{StaticResource Colors.Accent.DeepDark}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.Pressed" Color="{StaticResource Colors.Foreground.OnDeepDark}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Background.Disabled" Color="{StaticResource Colors.Gray.Light}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.Disabled" Color="{StaticResource Colors.Foreground.OnDeepDark}"/>
+
+</ResourceDictionary>
