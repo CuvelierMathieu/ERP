@@ -12,5 +12,8 @@
         <Button Content="Enabled" Margin="0 10"/>
         <Button Content="Disabled" IsEnabled="False"/>
 
+        <Button Content="Enabled" Margin="0 10" Style="{StaticResource ERP.Styles.Button.Circle}" Padding="10"/>
+        <Button Content="Disabled" IsEnabled="False" Style="{StaticResource ERP.Styles.Button.Circle}" Padding="10"/>
+
     </StackPanel>
 </Page>

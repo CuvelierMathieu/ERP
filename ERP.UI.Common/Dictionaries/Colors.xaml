@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--COLORS DEFINITION-->
+    <Color x:Key="Colors.Accent.Max">#FF5400</Color>
     <Color x:Key="Colors.Accent.Heavy">#F77F00</Color>
     <Color x:Key="Colors.Accent">#FCBF49</Color>
     <Color x:Key="Colors.Accent.Light">#EAE2B7</Color>
-    <Color x:Key="Colors.Accent.DeepDark">#003049</Color>
 
     <Color x:Key="Colors.Foreground">Black</Color>
     <Color x:Key="Colors.Foreground.OnDeepDark">White</Color>
@@ -25,13 +25,18 @@
 
     <!--STYLES COLORS-->
     <!--Button-->
+    <Color x:Key="ERP.Colors.Button.Background"/>
     <SolidColorBrush x:Key="ERP.Brushes.Button.Background" Color="{StaticResource Colors.Accent}"/>
     <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground" Color="{StaticResource Colors.Foreground}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.BorderBrush" Color="{StaticResource Colors.Gray.Light}"/>
     <SolidColorBrush x:Key="ERP.Brushes.Button.Background.MouseOver" Color="{StaticResource Colors.Accent.Heavy}"/>
     <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.MouseOver" Color="{StaticResource Colors.Foreground}"/>
-    <SolidColorBrush x:Key="ERP.Brushes.Button.Background.Pressed" Color="{StaticResource Colors.Accent.DeepDark}"/>
-    <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.Pressed" Color="{StaticResource Colors.Foreground.OnDeepDark}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.BorderBrush.MouseOver" Color="{StaticResource Colors.Accent}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Background.Pressed" Color="{StaticResource Colors.Accent.Max}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.Pressed" Color="{StaticResource Colors.Foreground}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.BorderBrush.Pressed" Color="{StaticResource Colors.Accent.Heavy}"/>
     <SolidColorBrush x:Key="ERP.Brushes.Button.Background.Disabled" Color="{StaticResource Colors.Gray.Light}"/>
     <SolidColorBrush x:Key="ERP.Brushes.Button.Foreground.Disabled" Color="{StaticResource Colors.Foreground.OnDeepDark}"/>
+    <SolidColorBrush x:Key="ERP.Brushes.Button.BorderBrush.Disabled" Color="{StaticResource Colors.Gray.Light}"/>
 
 </ResourceDictionary>

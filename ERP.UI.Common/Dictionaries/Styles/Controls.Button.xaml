@@ -2,18 +2,103 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Colors.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Converters.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Styles/Controls.Common.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="ERP.Templates.Button.Default" TargetType="Button">
-        <Border Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="{StaticResource ERP.Styles.Common.RoundedControls.CornerRadius}">
-            <ContentPresenter HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Margin="{TemplateBinding Padding}"/>
-        </Border>
+        <Grid>
+            <Border Background="{StaticResource ERP.Brushes.Button.Background.Pressed}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{StaticResource ERP.Styles.Common.RoundedControls.CornerRadius}"
+                    Opacity="0"
+                    x:Name="BackgroundBorder"/>
+            
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{StaticResource ERP.Styles.Common.RoundedControls.CornerRadius}">
+                <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Margin="{TemplateBinding Padding}"/>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="BackgroundBorder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             From="0"
+                                             To="0.3"
+                                             Duration="0:0:0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="BackgroundBorder"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0"
+                                            Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ERP.Templates.Button.Circle" TargetType="Button">
+        <Grid>
+            <Ellipse Fill="{TemplateBinding Background}"
+                     StrokeThickness="0" />
+            <Ellipse x:Name="ellipsebg"
+                     Fill="{StaticResource ERP.Brushes.Button.Background.Pressed}"
+                     Opacity="0"
+                     StrokeThickness="0" />
+            <Ellipse x:Name="ellipse"
+                     Stroke="{TemplateBinding BorderBrush}"
+                     StrokeThickness="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=BorderThickness, Converter={StaticResource LeftThicknessToDoubleConverter}}" />
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="ellipsebg"
+                                             Storyboard.TargetProperty="Opacity"
+                                             From="0"
+                                             To="0.3"
+                                             Duration="0:0:0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="ellipsebg"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0"
+                                             Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ellipse" Property="Opacity" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter TargetName="ellipse" Property="Opacity" Value="0.7" />
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="Button" x:Key="ERP.Styles.Button.Default">
@@ -25,18 +110,49 @@
         <Setter Property="BorderThickness" Value="0.5"/>
         <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background}"/>
         <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background.MouseOver}"/>
                 <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground.MouseOver}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush.MouseOver}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background.Pressed}"/>
                 <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground.Pressed}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush.Pressed}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background.Disabled}"/>
                 <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground.Disabled}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush.Disabled}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="ERP.Styles.Button.Circle" BasedOn="{StaticResource ERP.Styles.Button.Default}">
+        <Setter Property="Template" Value="{StaticResource ERP.Templates.Button.Circle}"/>
+        <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background}"/>
+        <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background.MouseOver}"/>
+                <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground.MouseOver}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush.MouseOver}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background.Pressed}"/>
+                <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground.Pressed}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush.Pressed}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource ERP.Brushes.Button.Background.Disabled}"/>
+                <Setter Property="Foreground" Value="{StaticResource ERP.Brushes.Button.Foreground.Disabled}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ERP.Brushes.Button.BorderBrush.Disabled}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

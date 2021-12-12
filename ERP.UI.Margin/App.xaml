@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:ERP.UI.Margin"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/MenuStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Styles/Controls.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

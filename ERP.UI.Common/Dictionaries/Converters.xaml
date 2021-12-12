@@ -5,5 +5,10 @@
     <converters:ListToSumConverter x:Key="ListToSumConverter"/>
     <converters:SubstractMultiValueConverter x:Key="SubstractMultiValueConverter"/>
     <converters:DividerMultiConverter x:Key="DividerMultiConverter"/>
+    
+    <converters:ThicknessToDoubleConverter x:Key="LeftThicknessToDoubleConverter" ThicknessPart="Left"/>
+    <converters:ThicknessToDoubleConverter x:Key="RightThicknessToDoubleConverter" ThicknessPart="Right"/>
+    <converters:ThicknessToDoubleConverter x:Key="TopThicknessToDoubleConverter" ThicknessPart="Top"/>
+    <converters:ThicknessToDoubleConverter x:Key="BottomThicknessToDoubleConverter" ThicknessPart="Bottom"/>
 
 </ResourceDictionary>

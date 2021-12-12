@@ -9,13 +9,6 @@
       d:DataContext="{d:DesignInstance Type=local:MarginViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
-    <Page.Resources>
-
-        <Style TargetType="Button" x:Key="CircleButton">
-            <Setter Property="Foreground" Value="AliceBlue"/>
-        </Style>
-        
-    </Page.Resources>
     <DockPanel Grid.IsSharedSizeScope="True">
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -78,7 +71,8 @@
                         Grid.Column="2"
                         HorizontalAlignment="Right"
                         Width="30" Height="30"
-                        Command="{Binding AddCommand}"/>
+                        Command="{Binding AddCommand}"
+                        Style="{StaticResource ERP.Styles.Button.Circle}"/>
             </Grid>
 
             <ItemsControl ItemsSource="{Binding Ingredients}">
