@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Converters.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Colors.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/MenuStyles.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ERP.UI.Common;component/Dictionaries/Styles/Controls.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

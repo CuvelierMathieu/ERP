@@ -20,9 +20,13 @@ namespace ERP.UI.MainWindowParts
     /// </summary>
     public partial class MainFrame : UserControl
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public MainFrame()
         {
+            logger.Debug("{WindowType} component constructed", nameof(MainFrame));
             InitializeComponent();
+            logger.Trace("Component initialized");
         }
     }
 }

@@ -2,6 +2,8 @@
 {
     public class DoubleHandler : ITypeHandler
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public object ConvertFromDouble(double value)
         {
             return value;

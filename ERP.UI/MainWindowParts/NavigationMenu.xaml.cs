@@ -20,9 +20,13 @@ namespace ERP.UI.MainWindowParts
     /// </summary>
     public partial class NavigationMenu : UserControl
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public NavigationMenu()
         {
+            logger.Debug("{WindowType} component constructed", nameof(NavigationMenu));
             InitializeComponent();
+            logger.Trace("Component initialized");
         }
     }
 }

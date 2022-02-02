@@ -6,10 +6,12 @@ namespace ERP.Common.Helpers.Types
 {
     public static class TypeHandlerBuilder
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static readonly IUnityContainer _container = GetContainer();
 
         private static IUnityContainer GetContainer()
         {
+            logger.Debug("Registering type into container");
             IUnityContainer container = new UnityContainer();
 
             container.RegisterType<ITypeHandler, StringHandler>(name: typeof(string).FullName);
@@ -29,6 +31,7 @@ namespace ERP.Common.Helpers.Types
 
         public static ITypeHandler Build(Type type)
         {
+            logger.Debug("Building handler for type {Type}", type);
             return _container.Resolve<ITypeHandler>(type.FullName);
         }
     }

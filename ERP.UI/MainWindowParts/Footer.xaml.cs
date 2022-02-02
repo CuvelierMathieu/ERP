@@ -20,9 +20,13 @@ namespace ERP.UI.MainWindowParts
     /// </summary>
     public partial class Footer : UserControl
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public Footer()
         {
+            logger.Debug("{WindowType} component constructed", nameof(Footer));
             InitializeComponent();
+            logger.Trace("Component initialized");
         }
     }
 }

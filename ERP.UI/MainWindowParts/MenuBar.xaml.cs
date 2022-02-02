@@ -20,9 +20,13 @@ namespace ERP.UI.MainWindowParts
     /// </summary>
     public partial class MenuBar : UserControl
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public MenuBar()
         {
+            logger.Debug("{WindowType} component constructed", nameof(MainWindow));
             InitializeComponent();
+            logger.Trace("Component initialized");
         }
     }
 }

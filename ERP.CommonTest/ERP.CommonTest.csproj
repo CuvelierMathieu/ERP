@@ -19,4 +19,10 @@
     <ProjectReference Include="..\ERP.Common\ERP.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="NLog.dll.nlog">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
